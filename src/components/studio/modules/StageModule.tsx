@@ -49,12 +49,12 @@ export const StageModule = memo(function StageModule({
       return (
         <group>
           {deck}
-          {[
+          {([
             [-2.6, -1.6],
             [2.6, -1.6],
             [-2.6, 1.6],
             [2.6, 1.6],
-          ].map(([x, z]) => (
+          ] as [number, number][]).map(([x, z]) => (
             <mesh key={`${x}-${z}`} position={[x, 1.8, z]} castShadow>
               <cylinderGeometry args={[0.14, 0.16, 3.2, 16]} />
               <meshStandardMaterial color={PALETTE.champagne} metalness={0.7} roughness={0.3} />
