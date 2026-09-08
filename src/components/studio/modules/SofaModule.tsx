@@ -28,12 +28,12 @@ function Seat({
           <meshStandardMaterial color={color} roughness={0.85} metalness={metalness} />
         </mesh>
       ))}
-      {[
+      {([
         [-width / 2 + 0.14, 0.44],
         [width / 2 - 0.14, 0.44],
         [-width / 2 + 0.14, -0.44],
         [width / 2 - 0.14, -0.44],
-      ].map(([x, z]) => (
+      ] as [number, number][]).map(([x, z]) => (
         <mesh key={`${x}-${z}`} position={[x, 0.06, z]}>
           <cylinderGeometry args={[0.05, 0.05, 0.24, 10]} />
           <meshStandardMaterial color={PALETTE.brass} metalness={0.9} roughness={0.25} />
@@ -50,7 +50,9 @@ export const SofaModule = memo(function SofaModule({
   variant: string;
   baseY: number;
 }) {
-  const config: Record<string, { color: string; back: number; width: number; metal?: number }> = {
+  type SofaSpec = { color: string; back: number; width: number; metal?: number };
+  const fallback: SofaSpec = { color: PALETTE.bone, back: 0.85, width: 2.2 };
+  const config: Record<string, SofaSpec> = {
     royal: { color: PALETTE.ivory, back: 1.5, width: 2.4 },
     classic: { color: PALETTE.bone, back: 0.85, width: 2.2 },
     contemporary: { color: PALETTE.stone, back: 0.55, width: 2.6 },
@@ -58,7 +60,7 @@ export const SofaModule = memo(function SofaModule({
     traditional: { color: "#6b4f34", back: 1.1, width: 2.3 },
     lounge: { color: PALETTE.bone, back: 0.6, width: 1.3 },
   };
-  const c = config[variant] ?? config.classic!;
+  const c = config[variant] ?? fallback;
 
   return (
     <group position={[0, baseY, -0.5]}>
@@ -77,7 +79,7 @@ export const SofaModule = memo(function SofaModule({
         </>
       ) : (
         <>
-          <Seat color={c.color} backHeight={c.back} width={c.width} metalness={c.metal} />
+          <Seat color={c.color} backHeight={c.back} width={c.width} metalness={c.metal ?? 0} />
           {variant === "royal" ? (
             <mesh position={[0, 0.28 + c.back + 0.16, -0.42]} castShadow>
               <boxGeometry args={[c.width * 0.7, 0.28, 0.16]} />
