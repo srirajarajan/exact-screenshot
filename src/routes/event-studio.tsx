@@ -19,7 +19,7 @@ import {
 } from "@/lib/studio/catalog";
 import { DEFAULT_CONFIG, estimate, type StudioConfig } from "@/lib/studio/config";
 import { saveVision } from "@/lib/studio/vision";
-import { conceptFromБDescription } from "@/lib/studio/ai-designer";
+import { conceptFromDescription } from "@/lib/studio/ai-designer";
 import { DecorToggles, ModuleSelector } from "@/components/studio/ModuleSelector";
 
 const StageScene = lazy(() =>

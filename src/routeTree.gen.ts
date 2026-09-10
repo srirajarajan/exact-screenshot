@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EventStudioRouteImport } from './routes/event-studio'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventStudioRoute = EventStudioRouteImport.update({
+  id: '/event-studio',
+  path: '/event-studio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
@@ -31,30 +37,34 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/event-studio': typeof EventStudioRoute
   '/events/$slug': typeof EventsSlugRoute
   '/events/': typeof EventsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/event-studio': typeof EventStudioRoute
   '/events/$slug': typeof EventsSlugRoute
   '/events': typeof EventsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/event-studio': typeof EventStudioRoute
   '/events/$slug': typeof EventsSlugRoute
   '/events/': typeof EventsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/events/$slug' | '/events/'
+  fullPaths: '/' | '/event-studio' | '/events/$slug' | '/events/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/events/$slug' | '/events'
-  id: '__root__' | '/' | '/events/$slug' | '/events/'
+  to: '/' | '/event-studio' | '/events/$slug' | '/events'
+  id: '__root__' | '/' | '/event-studio' | '/events/$slug' | '/events/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EventStudioRoute: typeof EventStudioRoute
   EventsSlugRoute: typeof EventsSlugRoute
   EventsIndexRoute: typeof EventsIndexRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/event-studio': {
+      id: '/event-studio'
+      path: '/event-studio'
+      fullPath: '/event-studio'
+      preLoaderRoute: typeof EventStudioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/events/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EventStudioRoute: EventStudioRoute,
   EventsSlugRoute: EventsSlugRoute,
   EventsIndexRoute: EventsIndexRoute,
 }
