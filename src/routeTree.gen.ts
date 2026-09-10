@@ -11,8 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as EventStudioRouteImport } from './routes/event-studio'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
+import { Route as OurWorkIndexRouteImport } from './routes/our-work.index'
+import { Route as OurWorkSlugRouteImport } from './routes/our-work.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const EventStudioRoute = EventStudioRouteImport.update({
   id: '/event-studio',
   path: '/event-studio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
@@ -34,39 +42,83 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
   path: '/events/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OurWorkIndexRoute = OurWorkIndexRouteImport.update({
+  id: '/our-work/',
+  path: '/our-work/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OurWorkSlugRoute = OurWorkSlugRouteImport.update({
+  id: '/our-work/$slug',
+  path: '/our-work/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/event-studio': typeof EventStudioRoute
+  '/services': typeof ServicesRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/our-work/$slug': typeof OurWorkSlugRoute
   '/events/': typeof EventsIndexRoute
+  '/our-work/': typeof OurWorkIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/event-studio': typeof EventStudioRoute
+  '/services': typeof ServicesRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/our-work/$slug': typeof OurWorkSlugRoute
   '/events': typeof EventsIndexRoute
+  '/our-work': typeof OurWorkIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/event-studio': typeof EventStudioRoute
+  '/services': typeof ServicesRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/our-work/$slug': typeof OurWorkSlugRoute
   '/events/': typeof EventsIndexRoute
+  '/our-work/': typeof OurWorkIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/event-studio' | '/events/$slug' | '/events/'
+  fullPaths:
+    | '/'
+    | '/event-studio'
+    | '/services'
+    | '/events/$slug'
+    | '/our-work/$slug'
+    | '/events/'
+    | '/our-work/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/event-studio' | '/events/$slug' | '/events'
-  id: '__root__' | '/' | '/event-studio' | '/events/$slug' | '/events/'
+  to:
+    | '/'
+    | '/event-studio'
+    | '/services'
+    | '/events/$slug'
+    | '/our-work/$slug'
+    | '/events'
+    | '/our-work'
+  id:
+    | '__root__'
+    | '/'
+    | '/event-studio'
+    | '/services'
+    | '/events/$slug'
+    | '/our-work/$slug'
+    | '/events/'
+    | '/our-work/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   EventStudioRoute: typeof EventStudioRoute
+  ServicesRoute: typeof ServicesRoute
   EventsSlugRoute: typeof EventsSlugRoute
+  OurWorkSlugRoute: typeof OurWorkSlugRoute
   EventsIndexRoute: typeof EventsIndexRoute
+  OurWorkIndexRoute: typeof OurWorkIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,6 +137,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventStudioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events/': {
       id: '/events/'
       path: '/events'
@@ -99,14 +158,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/our-work/': {
+      id: '/our-work/'
+      path: '/our-work'
+      fullPath: '/our-work/'
+      preLoaderRoute: typeof OurWorkIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/our-work/$slug': {
+      id: '/our-work/$slug'
+      path: '/our-work/$slug'
+      fullPath: '/our-work/$slug'
+      preLoaderRoute: typeof OurWorkSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   EventStudioRoute: EventStudioRoute,
+  ServicesRoute: ServicesRoute,
   EventsSlugRoute: EventsSlugRoute,
+  OurWorkSlugRoute: OurWorkSlugRoute,
   EventsIndexRoute: EventsIndexRoute,
+  OurWorkIndexRoute: OurWorkIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
