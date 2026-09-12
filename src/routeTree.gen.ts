@@ -11,13 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EventStudioRouteImport } from './routes/event-studio'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as DestinationsIndexRouteImport } from './routes/destinations.index'
 import { Route as DestinationsSlugRouteImport } from './routes/destinations.$slug'
+import { Route as EventVisionIdRouteImport } from './routes/event-vision.$id'
 import { Route as EventsIndexRouteImport } from './routes/events.index'
 import { Route as EventsSlugRouteImport } from './routes/events.$slug'
 import { Route as JournalIndexRouteImport } from './routes/journal.index'
+import { Route as JournalSlugRouteImport } from './routes/journal.$slug'
 import { Route as OurWorkIndexRouteImport } from './routes/our-work.index'
 import { Route as OurWorkSlugRouteImport } from './routes/our-work.$slug'
 
@@ -29,6 +32,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventStudioRoute = EventStudioRouteImport.update({
@@ -51,6 +59,11 @@ const DestinationsSlugRoute = DestinationsSlugRouteImport.update({
   path: '/destinations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventVisionIdRoute = EventVisionIdRouteImport.update({
+  id: '/event-vision/$id',
+  path: '/event-vision/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsIndexRoute = EventsIndexRouteImport.update({
   id: '/events/',
   path: '/events/',
@@ -64,6 +77,11 @@ const EventsSlugRoute = EventsSlugRouteImport.update({
 const JournalIndexRoute = JournalIndexRouteImport.update({
   id: '/journal/',
   path: '/journal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalSlugRoute = JournalSlugRouteImport.update({
+  id: '/journal/$slug',
+  path: '/journal/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OurWorkIndexRoute = OurWorkIndexRouteImport.update({
@@ -80,10 +98,13 @@ const OurWorkSlugRoute = OurWorkSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/event-studio': typeof EventStudioRoute
   '/services': typeof ServicesRoute
   '/destinations/$slug': typeof DestinationsSlugRoute
+  '/event-vision/$id': typeof EventVisionIdRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/journal/$slug': typeof JournalSlugRoute
   '/our-work/$slug': typeof OurWorkSlugRoute
   '/destinations/': typeof DestinationsIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -93,10 +114,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/event-studio': typeof EventStudioRoute
   '/services': typeof ServicesRoute
   '/destinations/$slug': typeof DestinationsSlugRoute
+  '/event-vision/$id': typeof EventVisionIdRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/journal/$slug': typeof JournalSlugRoute
   '/our-work/$slug': typeof OurWorkSlugRoute
   '/destinations': typeof DestinationsIndexRoute
   '/events': typeof EventsIndexRoute
@@ -107,10 +131,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/event-studio': typeof EventStudioRoute
   '/services': typeof ServicesRoute
   '/destinations/$slug': typeof DestinationsSlugRoute
+  '/event-vision/$id': typeof EventVisionIdRoute
   '/events/$slug': typeof EventsSlugRoute
+  '/journal/$slug': typeof JournalSlugRoute
   '/our-work/$slug': typeof OurWorkSlugRoute
   '/destinations/': typeof DestinationsIndexRoute
   '/events/': typeof EventsIndexRoute
@@ -122,10 +149,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
     | '/event-studio'
     | '/services'
     | '/destinations/$slug'
+    | '/event-vision/$id'
     | '/events/$slug'
+    | '/journal/$slug'
     | '/our-work/$slug'
     | '/destinations/'
     | '/events/'
@@ -135,10 +165,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contact'
     | '/event-studio'
     | '/services'
     | '/destinations/$slug'
+    | '/event-vision/$id'
     | '/events/$slug'
+    | '/journal/$slug'
     | '/our-work/$slug'
     | '/destinations'
     | '/events'
@@ -148,10 +181,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
     | '/event-studio'
     | '/services'
     | '/destinations/$slug'
+    | '/event-vision/$id'
     | '/events/$slug'
+    | '/journal/$slug'
     | '/our-work/$slug'
     | '/destinations/'
     | '/events/'
@@ -162,10 +198,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   EventStudioRoute: typeof EventStudioRoute
   ServicesRoute: typeof ServicesRoute
   DestinationsSlugRoute: typeof DestinationsSlugRoute
+  EventVisionIdRoute: typeof EventVisionIdRoute
   EventsSlugRoute: typeof EventsSlugRoute
+  JournalSlugRoute: typeof JournalSlugRoute
   OurWorkSlugRoute: typeof OurWorkSlugRoute
   DestinationsIndexRoute: typeof DestinationsIndexRoute
   EventsIndexRoute: typeof EventsIndexRoute
@@ -187,6 +226,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/event-studio': {
@@ -217,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DestinationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/event-vision/$id': {
+      id: '/event-vision/$id'
+      path: '/event-vision/$id'
+      fullPath: '/event-vision/$id'
+      preLoaderRoute: typeof EventVisionIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events/': {
       id: '/events/'
       path: '/events'
@@ -236,6 +289,13 @@ declare module '@tanstack/react-router' {
       path: '/journal'
       fullPath: '/journal/'
       preLoaderRoute: typeof JournalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal/$slug': {
+      id: '/journal/$slug'
+      path: '/journal/$slug'
+      fullPath: '/journal/$slug'
+      preLoaderRoute: typeof JournalSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/our-work/': {
@@ -258,10 +318,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   EventStudioRoute: EventStudioRoute,
   ServicesRoute: ServicesRoute,
   DestinationsSlugRoute: DestinationsSlugRoute,
+  EventVisionIdRoute: EventVisionIdRoute,
   EventsSlugRoute: EventsSlugRoute,
+  JournalSlugRoute: JournalSlugRoute,
   OurWorkSlugRoute: OurWorkSlugRoute,
   DestinationsIndexRoute: DestinationsIndexRoute,
   EventsIndexRoute: EventsIndexRoute,
