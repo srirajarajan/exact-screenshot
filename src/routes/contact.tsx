@@ -45,7 +45,7 @@ function ContactPage() {
     const data = Object.fromEntries(
       new FormData(e.currentTarget).entries(),
     ) as Record<string, string>;
-    if (!data.name || !data.email) {
+    if (!data['name'] || !data['email']) {
       toast.error("Please add your name and email.");
       return;
     }
