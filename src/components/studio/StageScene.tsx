@@ -3,8 +3,6 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, ContactShadows, Environment } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 
-import "./r3f-dev-shim";
-
 import { resolveConfig, type StudioConfig } from "@/lib/studio/config";
 import { StageModule } from "./modules/StageModule";
 import { BackdropModule } from "./modules/BackdropModule";
